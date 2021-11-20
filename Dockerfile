@@ -1,4 +1,10 @@
+FROM maven:3-jdk-11 as builder
+
+COPY src /app/src
+COPY pom.xml /app
+WORKDIR /app
+RUN mvn package
+
 FROM openjdk:11-jre-slim-buster
-ARG JAR_FILE=target/*.jar
-COPY ${JAR_FILE} app.jar
-ENTRYPOINT ["java","-jar","/app.jar"]
+COPY --from=builder /app/target /app/target
+ENTRYPOINT ["java","-jar","/app/target/omb-api-0.0.1-SNAPSHOT.jar"]
