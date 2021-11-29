@@ -11,22 +11,21 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class DepositServiceImpl implements DepositService {
+public class DepositServiceImpl  implements DepositService {
 
     @Autowired
     AccountsRepository accountsRepository;
 
-    @Override
+   @Override
     public DepositResponse makeDeposit(String accountId, DepositRequest depositRequest) {
         Optional<Account> accountOptional = accountsRepository.findById(accountId);
         if (accountOptional.isPresent()) {
             Account account = accountOptional.get();
             account.setCurrentBalance(account.getCurrentBalance() + depositRequest.getAmount());
             accountsRepository.save(account);
-            return new DepositResponse(account.getId(), account.getCurrentBalance());
+           return new DepositResponse(account.getId(), account.getCurrentBalance());
         } else{
             return new DepositResponse("Account Not found", 0.0);
         }
     }
-
 }

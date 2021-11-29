@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AccountsServiceImpl implements AccountsService {
@@ -16,6 +17,25 @@ public class AccountsServiceImpl implements AccountsService {
 
     @Override
     public List<Account> getAccounts() {
-        return accountsRepository.findAll();
+
+        if(!accountsRepository.findAll().isEmpty()){
+            return accountsRepository.findAll();
+        }
+        return null;
+    }
+
+    @Override
+    public void postAccounts(Account account) {
+
+        accountsRepository.insert(account);
+    }
+
+    @Override
+    public Optional<Account> getAccountsById(String accountId) {
+        if(accountsRepository.findById(accountId).isEmpty()){
+            return Optional.empty();
+                    }   else {
+            return accountsRepository.findById(accountId);
+        }
     }
 }
