@@ -1,5 +1,6 @@
 package com.sngular.omb.ombapi.controller;
 
+import com.sngular.omb.ombapi.exception.ExceptionFormat;
 import com.sngular.omb.ombapi.model.request.DepositRequest;
 import com.sngular.omb.ombapi.model.response.DepositResponse;
 import com.sngular.omb.ombapi.service.DepositService;
@@ -18,7 +19,7 @@ public class DepositController {
     private DepositService depositService;
 
     @PostMapping("/accounts/{accountId}/deposit")
-    public DepositResponse postDeposit(@PathVariable String accountId, @RequestBody DepositRequest depositRequest) {
+    public DepositResponse postDeposit(@PathVariable String accountId, @RequestBody DepositRequest depositRequest) throws ExceptionFormat {
         return depositService.makeDeposit(accountId,depositRequest);
     }
 }

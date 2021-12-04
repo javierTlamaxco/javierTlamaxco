@@ -1,5 +1,6 @@
 package com.sngular.omb.ombapi.service;
 
+import com.sngular.omb.ombapi.exception.ExceptionFormat;
 import com.sngular.omb.ombapi.model.Account;
 
 import java.util.List;
@@ -7,9 +8,9 @@ import java.util.Optional;
 
 public interface AccountsService {
 
-    List<Account> getAccounts();
+    List<Account> getAccounts() throws ExceptionFormat;
 
-    void postAccounts(Account account);
+    Account postAccounts(Account account) throws ExceptionFormat;
 
-    Optional<Account> getAccountsById(String accountId);
+    Optional<Account> getAccountsById(String accountId) throws ExceptionFormat;
 }
