@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
-
+/**
+ * Account Controller class.
+ * */
 @RestController
 @CrossOrigin(origins = "*")
 @Slf4j
@@ -23,7 +25,11 @@ public class AccountsController {
     @Autowired
     private AccountsService accountsService;
 
-    /**Controller for get all Accounts */
+    /**Controller for get all Accounts.
+     * @return ResponseEntity account list.
+     *
+     * @throws ExceptionFormat exception format.
+     * */
     @GetMapping("/accounts")
     @ResponseBody
     public ResponseEntity<List<Account>> getAccounts() throws ExceptionFormat {
@@ -35,21 +41,30 @@ public class AccountsController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    /**Controller for get Accounts by Id*/
+    /**Controller for get Accounts by Id.
+     * @param id id Account.
+     * @return ResponseEntity Account.
+     *
+     * @throws ExceptionFormat
+     * */
     @GetMapping("/accounts/{id}")
     @ResponseBody
-    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ExceptionHandler(ExceptionFormat.class)
     public ResponseEntity<Account> getAccounts(@PathVariable String id) throws ExceptionFormat {
         if(!accountsService.getAccountsById(id).isEmpty()) {
             log.info("Getting account info" + id);
             return new ResponseEntity(accountsService.getAccountsById(id),HttpStatus.OK);
         } else {
             log.error("The given account identifier was not found" + id);
-            return new ResponseEntity("The given account identifier was not found",HttpStatus.NOT_FOUND);
+            throw  new ExceptionFormat(400,"The given account identifier was not found",HttpStatus.NOT_FOUND);
         }
     }
 
-    /**Controller to Create Accounts */
+    /**Controller to Create Accounts
+     * @param account Account model.
+     * @return ResponseEntity Account.
+     * @throws ExceptionFormat exception format.
+     * */
     @PostMapping("/accounts")
         public ResponseEntity<Account> postAccounts (@Valid @RequestBody(required = true) Account account) throws ExceptionFormat {
 

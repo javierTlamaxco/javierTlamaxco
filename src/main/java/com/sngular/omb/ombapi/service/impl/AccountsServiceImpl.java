@@ -6,18 +6,29 @@ import com.sngular.omb.ombapi.repository.AccountsRepository;
 import com.sngular.omb.ombapi.service.AccountsService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Class implements interface AccountService
+ * */
 @Service
 @Slf4j
 public class AccountsServiceImpl implements AccountsService {
 
+    /**Accounts Repository.*/
     @Autowired
     AccountsRepository accountsRepository;
 
+    /**Get Accounts method service.
+     *
+     * @throws ExceptionFormat if theres an Exception.
+     *
+     * @return Account List.
+     * */
     @Override
     public List<Account> getAccounts()  throws ExceptionFormat {
 
@@ -27,6 +38,12 @@ public class AccountsServiceImpl implements AccountsService {
         return null;
     }
 
+    /**Insert new Accounts method service.
+     *
+     * @throws ExceptionFormat if theres an Exception.
+     *
+     * @return Account.
+     * */
     @Override
     public Account postAccounts(Account account) throws ExceptionFormat {
     try{
@@ -34,11 +51,18 @@ public class AccountsServiceImpl implements AccountsService {
        return  accountsRepository.insert(account);
     } catch (Exception exp){
         log.error("Can't create ");
-        throw new ExceptionFormat(400,"Exception creating account"+exp);
+        throw new ExceptionFormat(400,"Exception creating account"+exp, HttpStatus.BAD_REQUEST);
     }
 
     }
 
+    /**Get Accounts method service by Id.
+     *
+     * @param
+     * @throws ExceptionFormat if theres an Exception.
+     *
+     * @return Optional Account.
+     * */
     @Override
     public Optional<Account> getAccountsById(String accountId) throws ExceptionFormat {
 
@@ -46,11 +70,12 @@ public class AccountsServiceImpl implements AccountsService {
             if(accountsRepository.findById(accountId).isEmpty()){
                 return Optional.empty();
             }   else {
+                log.info("Account found " + accountId);
                 return accountsRepository.findById(accountId);
             }
         } catch (Exception exp){
             log.error("Account not found"+accountId);
-            throw new ExceptionFormat(400,"Not Found Account"+exp);
+            throw new ExceptionFormat(400,"Not Found Account"+exp,HttpStatus.BAD_REQUEST);
         }
 
     }

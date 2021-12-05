@@ -12,7 +12,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
-/**Class implements interface WithDrawalService*/
+/**
+ * Class implements interface WithDrawalService
+ * */
 @Service
 @Slf4j
 public class WithDrawalServiceImpl implements WithDrawalService {

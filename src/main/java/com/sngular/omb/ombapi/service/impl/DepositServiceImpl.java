@@ -6,6 +6,7 @@ import com.sngular.omb.ombapi.model.request.DepositRequest;
 import com.sngular.omb.ombapi.model.response.DepositResponse;
 import com.sngular.omb.ombapi.repository.AccountsRepository;
 import com.sngular.omb.ombapi.service.DepositService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +14,7 @@ import java.util.Optional;
 
 /**Class implements interface DepositService*/
 @Service
+@Slf4j
 public class DepositServiceImpl  implements DepositService {
     /**Accounts Repository.*/
     @Autowired
@@ -33,8 +35,10 @@ public class DepositServiceImpl  implements DepositService {
             Account account = accountOptional.get();
             account.setCurrentBalance(account.getCurrentBalance() + depositRequest.getAmount());
             accountsRepository.save(account);
+            log.info("Deposit acepted, current balance " + account.getCurrentBalance());
            return new DepositResponse(account.getId(), account.getCurrentBalance());
         } else{
+            log.error("Account Not found");
             return new DepositResponse("Account Not found", 0.0);
         }
     }
