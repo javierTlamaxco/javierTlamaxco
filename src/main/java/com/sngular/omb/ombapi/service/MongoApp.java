@@ -31,15 +31,15 @@ public class MongoApp {
         MongoOperations mongoOps = new MongoTemplate(MongoClients.create(), "omb");
 
         Account cuenta = new Account();
-        cuenta.setName("Account 29");
-        cuenta.setRoutingNumber("1235");
-        cuenta.setAccountNumber("9876");
-        cuenta.setOpenDate("2021-04-28");
-        cuenta.setCurrentBalance(0.0);
+        // cuenta.setName("Account 29");
+        // cuenta.setRoutingNumber("1235");
+        // cuenta.setAccountNumber("9876");
+        // cuenta.setOpenDate("2021-04-28");
+        // cuenta.setCurrentBalance(0.0);
 
-        mongoOps.insert(cuenta);
+        // mongoOps.insert(cuenta);
 
-        log.info(mongoOps.findOne(new Query(where("name").is("Account 7")), Account.class));
+        // log.info(mongoOps.findOne(new Query(where("name").is("Account 7")), Account.class));
 
     //    mongoOps.dropCollection("account");
     }

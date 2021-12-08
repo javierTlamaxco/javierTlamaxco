@@ -34,10 +34,10 @@ public class AccountsController {
     @ResponseBody
     public ResponseEntity<List<Account>> getAccounts() throws ExceptionFormat {
        if(!accountsService.getAccounts().isEmpty()){
-           log.info("Entrando a Consultar cuentas");
+        //    log.info("Entrando a Consultar cuentas");
             return new ResponseEntity<>(accountsService.getAccounts(),HttpStatus.OK);
         }
-       log.error("No hay informacion de cuentas");
+    //    log.error("No hay informacion de cuentas");
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
@@ -52,10 +52,10 @@ public class AccountsController {
     @ExceptionHandler(ExceptionFormat.class)
     public ResponseEntity<Account> getAccounts(@PathVariable String id) throws ExceptionFormat {
         if(!accountsService.getAccountsById(id).isEmpty()) {
-            log.info("Getting account info" + id);
+            // log.info("Getting account info" + id);
             return new ResponseEntity(accountsService.getAccountsById(id),HttpStatus.OK);
         } else {
-            log.error("The given account identifier was not found" + id);
+            // log.error("The given account identifier was not found" + id);
             throw  new ExceptionFormat(400,"The given account identifier was not found",HttpStatus.NOT_FOUND);
         }
     }
@@ -70,12 +70,13 @@ public class AccountsController {
 
         if(account != null) {
            Account savedAccount= accountsService.postAccounts(account);
-            log.info("Register inserted"+ account);
+            // log.info("Register inserted"+ account);
             return new ResponseEntity<Account>(savedAccount,HttpStatus.ACCEPTED);
         } else {
-            log.error("There is no data on the request");
-            return new ResponseEntity<Account>(new Account(),HttpStatus.BAD_REQUEST);
+            // log.error("There is no data on the request");
+            // return new ResponseEntity<Account>(new Account(),HttpStatus.BAD_REQUEST);
            // return ResponseEntity.badRequest().body(HttpStatus.BAD_REQUEST);
+           return null;
         }
         }
 }

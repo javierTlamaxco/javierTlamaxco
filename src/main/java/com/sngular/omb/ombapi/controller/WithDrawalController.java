@@ -32,7 +32,7 @@ public class WithDrawalController {
      * */
     @PostMapping("/accounts/{accountId}/withdraw/")
     public WithdrawalResponse postWithdrawal(@PathVariable String accountId, @RequestBody WithdrawalRequest withdrawalRequest) throws ExceptionFormat {
-        log.info(accountId,withdrawalRequest.getAmount());
+        // log.info(accountId,withdrawalRequest.getAmount());
         return  withDrawalService.withdrawAmount(accountId,withdrawalRequest);
     }
 

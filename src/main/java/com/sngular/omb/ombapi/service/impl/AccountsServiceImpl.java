@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -47,10 +49,15 @@ public class AccountsServiceImpl implements AccountsService {
     @Override
     public Account postAccounts(Account account) throws ExceptionFormat {
     try{
+        // account.setCurrentBalance(account.getInitialBalance());
+        SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
+        Date date = new Date(System.currentTimeMillis());
         account.setCurrentBalance(account.getInitialBalance());
+        account.setOpenDate(formatter.format(date));
+        
        return  accountsRepository.insert(account);
     } catch (Exception exp){
-        log.error("Can't create ");
+        // log.error("Can't create ");
         throw new ExceptionFormat(400,"Exception creating account"+exp, HttpStatus.BAD_REQUEST);
     }
 
@@ -70,11 +77,11 @@ public class AccountsServiceImpl implements AccountsService {
             if(accountsRepository.findById(accountId).isEmpty()){
                 return Optional.empty();
             }   else {
-                log.info("Account found " + accountId);
+                // log.info("Account found " + accountId);
                 return accountsRepository.findById(accountId);
             }
         } catch (Exception exp){
-            log.error("Account not found"+accountId);
+            // log.error("Account not found"+accountId);
             throw new ExceptionFormat(400,"Not Found Account"+exp,HttpStatus.BAD_REQUEST);
         }
 

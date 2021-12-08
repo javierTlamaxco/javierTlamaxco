@@ -59,4 +59,12 @@ public class Account {
     public Account() {
 
     }
+
+    // public String getId() {
+    //     return id;
+    // }
+
+    // public Double getCurrentBalance() {
+    //     return currentBalance;
+    // }
 }
