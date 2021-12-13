@@ -35,10 +35,10 @@ public class DepositServiceImpl  implements DepositService {
             Account account = accountOptional.get();
             account.setCurrentBalance(account.getCurrentBalance() + depositRequest.getAmount());
             accountsRepository.save(account);
-            // log.info("Deposit acepted, current balance " + account.getCurrentBalance());
-            return new DepositResponse(account.getId(), account.getCurrentBalance());
+            log.info("Deposit acepted, current balance " + account.getCurrentBalance());
+           return new DepositResponse(account.getId(), account.getCurrentBalance());
         } else{
-            // log.error("Account Not found");
+            log.error("Account Not found");
             return new DepositResponse("Account Not found", 0.0);
         }
     }

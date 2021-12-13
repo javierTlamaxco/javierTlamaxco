@@ -18,7 +18,11 @@ public class DepositResponse {
     /** Current Balance*/
     private Double currentBalance;
 
-        /**Contructor for new Accounts*/
+    /**Contructor for new Accounts*/
     public DepositResponse(String accountId, double currentBalance) {
+    }
+
+    public DepositResponse() {
+
     }
 }

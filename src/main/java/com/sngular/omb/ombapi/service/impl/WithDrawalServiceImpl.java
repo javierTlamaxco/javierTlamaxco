@@ -41,24 +41,22 @@ public class WithDrawalServiceImpl implements WithDrawalService {
             if (account.getCurrentBalance()==null){
                 account.setCurrentBalance(account.getInitialBalance());
             }
-
-            if(account.getCurrentBalance() < withdrawReq.getAmount()) {
+            if (account.getCurrentBalance() < withdrawReq.getAmount()) {
                 withdrawalResponse.setAccountId("You do not have enough funds");
                 withdrawalResponse.setCurrentBalance(account.getCurrentBalance());
-                // log.info("The account " + account.getId() + " doesn't have founds");
+                log.info("The account " + account.getId() + " doesn't have founds");
             } else {
                 account.setCurrentBalance(account.getCurrentBalance() - withdrawReq.getAmount());
                 accountsRepository.save(account);
                 withdrawalResponse.setAccountId(account.getId());
                 withdrawalResponse.setCurrentBalance(account.getCurrentBalance());
-                // log.info("The Current Balance from account " + account.getId() + " is " + account.getCurrentBalance());
+                log.info("The Current Balance from account " + account.getId() + " is " + account.getCurrentBalance());
             }
 
         } else {
-            // log.error("Account not Found");
+            log.error("Account not Found");
             return new WithdrawalResponse("Account not Found",0.0);
         }
-        
         return  withdrawalResponse;
     }
 }

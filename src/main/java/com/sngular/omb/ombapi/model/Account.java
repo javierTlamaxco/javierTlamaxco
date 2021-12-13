@@ -2,13 +2,12 @@ package com.sngular.omb.ombapi.model;
 
 import com.sngular.omb.ombapi.util.AccountType;
 import lombok.*;
-import javax.validation.constraints.NotBlank;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 @Builder
 @AllArgsConstructor
@@ -59,12 +58,4 @@ public class Account {
     public Account() {
 
     }
-
-    // public String getId() {
-    //     return id;
-    // }
-
-    // public Double getCurrentBalance() {
-    //     return currentBalance;
-    // }
 }

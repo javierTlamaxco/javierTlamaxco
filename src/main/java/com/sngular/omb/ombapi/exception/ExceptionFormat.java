@@ -10,7 +10,7 @@ import org.springframework.http.HttpStatus;
  * */
 @Getter
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
-public class ExceptionFormat extends  Exception {
+public class ExceptionFormat extends  RuntimeException {
 
    // private  final Long timeStamp;
     /**Status Value.*/
@@ -25,11 +25,11 @@ public class ExceptionFormat extends  Exception {
     /**
      * Exception Format Constructor.
      * */
-    public  ExceptionFormat(/*final Long timeStamp,*/ final int status,final String message, final HttpStatus httpStatus){
+    public  ExceptionFormat(final int status,final String message, final HttpStatus httpStatus){
         super(message);
-        //this.timeStamp = timeStamp;
         this.status = status;
         this.errorCode = null;
         this.httpStatus = httpStatus;
     }
+
 }
